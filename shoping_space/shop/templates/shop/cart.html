@@ -1,0 +1,52 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}
+    cart
+{% endblock title %}
+
+{% block content %}
+<section class="bg-light py-4 my-5" style="min-height: 600px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="mb-3">Cart</h4>
+                <hr style="border-color:#b8bfc2;"><nav aria-label="breadcrumb">
+                </div>
+                <table>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product Name</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Total Amount</th>
+                        <th>Remove</th>
+                    </tr>
+                    {% for item in cart %}
+                    <tr>
+                        <td><img src="{{item.PRODUCT.PRODUCT_IMAGE.url}}" height="75px" alt="{{item.PRODUCT.NAME}}"></td>
+                        <td>{{item.PRODUCT.NAME}}</td>
+                        <td>{{item.PRODUCT.SELLING_PRICE}}</td>
+                        <td>{{item.PRODUCT_QTY}}</td>
+                        <td class="amt">{{item.total_cost}}</td>
+                        <td><a href="{% url 'remove_cart' item.id %}" onclick="return confirm('Are you sure to remove')" class="btn btn-danger"><i class="fa fa-trash"></i>Remove</a></td>
+                    </tr> 
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2"><b>Toatl Amount</td>
+                        <td id="net">0</td>
+                    </tr>
+
+                </table>
+        </div>
+    </div>
+</section>
+<script>
+    const nodes = document.querySelectorAll('.amt');
+    const arr = Array.from(nodes);
+    const res = arr.reduce((acc,curr)=>{
+        return acc += Number(curr.textContent)
+    },0);
+    document.getElementById("net").innerHTML="Rs : "+res;
+</script>
+{% endblock content %}

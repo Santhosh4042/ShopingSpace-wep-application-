@@ -1,0 +1,33 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}
+    favourite page
+{% endblock title %}
+
+{% block content %}
+<section class="bg-light py-4 my-5" style="min-height: 600px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="mb-3">Favourite</h4>
+                <hr style="border-color:#b8bfc2;"><nav aria-label="breadcrumb">
+            </div>
+                <table>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product Name</th>
+                        <th>Unit Price</th>
+                        <th>Remove</th>
+                    </tr>
+                    {% for item in fav %}
+                    <tr>
+                        <td><img src="{{item.PRODUCT.PRODUCT_IMAGE.url}}" height="75px" alt="{{item.PRODUCT.NAME}}"></td>
+                        <td>{{item.PRODUCT.NAME}}</td>
+                        <td>{{item.PRODUCT.SELLING_PRICE}}</td>
+                        <td><a href="{% url 'remove_fav' item.id %}" onclick="return confirm('Are you sure to remove')" class="btn btn-danger"><i class="fa fa-trash"></i>Remove</a></td>
+                    </tr> 
+                    {% endfor %}
+                </table>
+        </div>     
+    </div>
+</section>     
+{% endblock content %}

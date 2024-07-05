@@ -1,0 +1,45 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}
+    🤘collections page
+{% endblock title %}
+
+{% block content %}
+    <section class="py-5 text-center container"  style="margin-top:70px;">
+        <div class="row py-lg-5">
+          <div class="col-lg-6 col-md-8 mx-auto" style="background-color: blanchedalmond;">
+            <h1 class="fw-light">Shoping Space Collections</h1>
+            <p class="lead text-muted">All items in one place</p>
+            {% comment %} {% if collections.user.isnot_authenticated %}
+            <p>
+              <a href="{% url 'sign' %}" class="btn btn-primary my-2"><i class="fa-solid fa-user-plus"></i>Sign in</a>
+              <a href="{% url 'login' %}" class="btn btn-secondary my-2"><i class="fa-regular fa-user"></i>Login</a>
+            </p>
+            {% endif %} {% endcomment %}
+          </div>
+        </div>
+      </section>
+      <section class="bg-light py-4 my-5" style="min-height: 600px;" >
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+                <h4 class="mb-3">Categories</h4>
+                <hr style="border-color: #b8bfc2;">
+            </div>
+            
+            {% for item in collections  %}    
+            <div class="col-md-4 col-lg-3">
+                <div class="card my-3">
+                    <img src="{{item.IMAGE.url}}" class="card-image-top" alt="Categories">
+                    <a href="{% url 'collections' item.NAME %}">
+                    <div class="cord-body">
+                        <h5 class="card-title text-primary">{{item.NAME}}</h5>
+                        <p class="card-text">{{item.DESCRIPTION}}</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+      </div>
+    </section>
+{% endblock content %}
